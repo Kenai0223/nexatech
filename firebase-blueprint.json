@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "users": {
+      "description": "User profiles authenticated via Google Sign-In or Firebase Auth",
+      "fields": {
+        "uid": { "type": "string", "description": "Firebase Auth user ID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User avatar photo URL" },
+        "role": { "type": "string", "description": "User role: partner, client, or visitor" },
+        "country": { "type": "string", "description": "Country / region of the partner" },
+        "createdAt": { "type": "timestamp", "description": "Account creation timestamp" },
+        "updatedAt": { "type": "timestamp", "description": "Last profile update timestamp" }
+      }
+    },
+    "partner_inquiries": {
+      "description": "Remote engineering partnership applications and inquiries",
+      "fields": {
+        "id": { "type": "string", "description": "Unique inquiry ID" },
+        "userId": { "type": "string", "description": "User ID if signed in, or guest id" },
+        "name": { "type": "string", "description": "Applicant full name" },
+        "email": { "type": "string", "description": "Applicant email" },
+        "location": { "type": "string", "description": "Country/City location" },
+        "vmwareReady": { "type": "string", "description": "VMware readiness status" },
+        "notes": { "type": "string", "description": "Partnership inquiry notes or questions" },
+        "status": { "type": "string", "description": "Review status: Pending, Under Review, Approved" },
+        "createdAt": { "type": "timestamp", "description": "Submission timestamp" }
+      }
+    },
+    "chat_sessions": {
+      "description": "Gemini AI advisor chat history and threads",
+      "fields": {
+        "id": { "type": "string", "description": "Chat session ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "title": { "type": "string", "description": "Summary title of the conversation" },
+        "modelUsed": { "type": "string", "description": "Gemini model used for chat" },
+        "mode": { "type": "string", "description": "Chat mode: standard, search_grounded, or maps_grounded" },
+        "createdAt": { "type": "timestamp", "description": "Session creation time" },
+        "updatedAt": { "type": "timestamp", "description": "Last message timestamp" }
+      }
+    }
+  }
+}

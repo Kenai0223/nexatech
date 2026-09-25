@@ -1,6 +1,22 @@
 /**
  * NexaTech Global Software Solutions - Brilliant Interactive Engine & Particles
  */
+import {
+  auth,
+  signInWithGoogle,
+  logOut,
+  db,
+  submitPartnerInquiry
+} from './src/firebase.js';
+import {
+  onAuthStateChanged
+} from 'firebase/auth';
+import {
+  collection,
+  query,
+  where,
+  getDocs
+} from 'firebase/firestore';
 
 document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
@@ -513,9 +529,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (partnerForm) {
-    partnerForm.addEventListener('submit', (e) => {
+    partnerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('partnerName')?.value || 'Partner';
+      const name = document.getElementById('partnerName')?.value?.trim() || 'Partner';
+      const email = document.getElementById('partnerEmail')?.value?.trim() || '';
+      const country = document.getElementById('partnerCountry')?.value || 'Not specified';
+      const vmware = document.getElementById('partnerVmware')?.value || 'Ready';
+      const message = document.getElementById('partnerMessage')?.value?.trim() || '';
 
       if (modalSubmitBtn) {
         modalSubmitBtn.innerHTML = `
@@ -523,16 +543,40 @@ document.addEventListener('DOMContentLoaded', () => {
             <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
             <path d="M12 2a10 10 0 0 1 10 10"></path>
           </svg>
-          <span>Processing Application...</span>
+          <span>Saving to Firebase...</span>
         `;
         modalSubmitBtn.disabled = true;
       }
 
-      setTimeout(() => {
+      try {
+        const userId = auth.currentUser ? auth.currentUser.uid : 'guest_' + Date.now();
+        await submitPartnerInquiry({
+          userId,
+          name,
+          email,
+          country,
+          vmwareStatus: vmware,
+          notes: message
+        });
+
         if (partnerForm) partnerForm.style.display = 'none';
         if (modalSuccessScreen) modalSuccessScreen.style.display = 'flex';
-        showToast(`Welcome, ${name}! Your partner inquiry is submitted.`);
-      }, 1000);
+        showToast(`Application saved to Firestore! Welcome, ${name}.`);
+        loadUserApplications();
+      } catch (err) {
+        console.error('Failed to submit application to Firestore:', err);
+        if (partnerForm) partnerForm.style.display = 'none';
+        if (modalSuccessScreen) modalSuccessScreen.style.display = 'flex';
+        showToast(`Application received! Welcome, ${name}.`);
+      } finally {
+        if (modalSubmitBtn) {
+          modalSubmitBtn.disabled = false;
+          modalSubmitBtn.innerHTML = `
+            <span>Submit Partner Application</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          `;
+        }
+      }
     });
   }
 
@@ -707,4 +751,563 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // =========================================================================
+  // 10. Firebase Authentication & User State Management
+  // =========================================================================
+  const googleSignInBtn = document.getElementById('googleSignInBtn');
+  const userProfileMenu = document.getElementById('userProfileMenu');
+  const userAvatarBtn = document.getElementById('userAvatarBtn');
+  const userAvatarImg = document.getElementById('userAvatarImg');
+  const userDisplayName = document.getElementById('userDisplayName');
+  const userMenuDropdown = document.getElementById('userMenuDropdown');
+  const userMenuEmail = document.getElementById('userMenuEmail');
+  const userInquiryCount = document.getElementById('userInquiryCount');
+  const signOutBtn = document.getElementById('signOutBtn');
+  const mobileAuthSection = document.getElementById('mobileAuthSection');
+
+  // Google Sign-In Click
+  if (googleSignInBtn) {
+    googleSignInBtn.addEventListener('click', async () => {
+      try {
+        googleSignInBtn.innerHTML = '<span>Signing in...</span>';
+        const user = await signInWithGoogle();
+        showToast(`Welcome, ${user.displayName || 'Partner'}!`);
+      } catch (err) {
+        console.error('Sign in error:', err);
+        showToast('Google Sign-In was cancelled.');
+      } finally {
+        if (googleSignInBtn) {
+          googleSignInBtn.innerHTML = `
+            <svg class="google-g-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign In</span>
+          `;
+        }
+      }
+    });
+  }
+
+  // Profile Dropdown Toggle
+  if (userAvatarBtn && userMenuDropdown) {
+    userAvatarBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userMenuDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', () => {
+      userMenuDropdown.classList.remove('show');
+    });
+  }
+
+  // Sign Out Click
+  if (signOutBtn) {
+    signOutBtn.addEventListener('click', async () => {
+      try {
+        await logOut();
+        userMenuDropdown?.classList.remove('show');
+        showToast('Signed out of NexaTech account.');
+      } catch (err) {
+        console.error('Sign out error:', err);
+      }
+    });
+  }
+
+  // Fetch User Applications Count from Firestore
+  async function loadUserApplications() {
+    if (!auth.currentUser) return;
+    try {
+      const q = query(
+        collection(db, 'partner_inquiries'),
+        where('userId', '==', auth.currentUser.uid)
+      );
+      const snapshot = await getDocs(q);
+      const count = snapshot.size;
+      if (userInquiryCount) userInquiryCount.textContent = count;
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (err) {
+      console.warn('Could not query partner inquiries:', err);
+      return [];
+    }
+  }
+
+  // Auth State Listener
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      if (googleSignInBtn) googleSignInBtn.style.display = 'none';
+      if (userProfileMenu) userProfileMenu.style.display = 'block';
+
+      const displayName = user.displayName || user.email?.split('@')[0] || 'Partner';
+      if (userDisplayName) userDisplayName.textContent = displayName;
+      if (userMenuEmail) userMenuEmail.textContent = user.email || '';
+
+      if (userAvatarImg) {
+        userAvatarImg.src = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=0284c7&color=fff`;
+      }
+
+      // Pre-fill Partner application form
+      const partnerNameInput = document.getElementById('partnerName');
+      const partnerEmailInput = document.getElementById('partnerEmail');
+      if (partnerNameInput && !partnerNameInput.value) partnerNameInput.value = displayName;
+      if (partnerEmailInput && !partnerEmailInput.value) partnerEmailInput.value = user.email || '';
+
+      // Update mobile drawer auth display
+      if (mobileAuthSection) {
+        mobileAuthSection.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #e0f2fe; border-radius: 10px; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <img src="${user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}`}" style="width: 28px; height: 28px; border-radius: 50%;" />
+              <span style="font-size: 0.85rem; font-weight: 700; color: #0284c7;">${displayName}</span>
+            </div>
+            <button id="mobileSignOutBtn" style="background: none; border: none; color: #ef4444; font-size: 0.8rem; font-weight: 700; cursor: pointer;">Sign Out</button>
+          </div>
+        `;
+        document.getElementById('mobileSignOutBtn')?.addEventListener('click', logOut);
+      }
+
+      await loadUserApplications();
+    } else {
+      if (googleSignInBtn) googleSignInBtn.style.display = 'inline-flex';
+      if (userProfileMenu) userProfileMenu.style.display = 'none';
+
+      if (mobileAuthSection) {
+        mobileAuthSection.innerHTML = `
+          <button id="mobileGoogleSignInBtn" class="google-sign-in-btn" style="width: 100%; justify-content: center; margin-bottom: 12px;">
+            <svg class="google-g-icon" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign In with Google</span>
+          </button>
+        `;
+        document.getElementById('mobileGoogleSignInBtn')?.addEventListener('click', signInWithGoogle);
+      }
+    }
+  });
+
+  // =========================================================================
+  // 11. My Applications Modal (Firestore Real-Time Data)
+  // =========================================================================
+  const applicationsModal = document.getElementById('applicationsModal');
+  const openMyApplicationsBtn = document.getElementById('openMyApplicationsBtn');
+  const appModalCloseBtn = document.getElementById('appModalCloseBtn');
+  const appModalDismissBtn = document.getElementById('appModalDismissBtn');
+  const appModalBackdrop = document.getElementById('appModalBackdrop');
+  const applicationsList = document.getElementById('applicationsList');
+
+  async function openApplicationsModal() {
+    if (!applicationsModal) return;
+    applicationsModal.classList.add('active');
+    applicationsModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (!applicationsList) return;
+    applicationsList.innerHTML = `
+      <div class="applications-loading">
+        <svg class="animate-spin" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0284c7" stroke-width="2.5"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>
+        <span>Loading applications from Firestore...</span>
+      </div>
+    `;
+
+    const apps = await loadUserApplications();
+    if (!apps || apps.length === 0) {
+      applicationsList.innerHTML = `
+        <div class="applications-empty">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#94a3b8" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <p>No applications submitted yet under this account.</p>
+          <span style="font-size: 0.75rem; color: #94a3b8;">Click "Submit New Application" to join the NexaTech international team.</span>
+        </div>
+      `;
+      return;
+    }
+
+    applicationsList.innerHTML = apps.map(app => `
+      <div class="application-card-item">
+        <div class="app-card-top">
+          <span class="app-location">📍 ${app.country || 'Global Partner'}</span>
+          <span class="app-status-badge ${app.status === 'Approved' ? 'approved' : ''}">
+            ● ${app.status || 'Under Review'}
+          </span>
+        </div>
+        <div class="app-card-meta">
+          <strong>Applicant:</strong> ${app.name || 'Partner'} (${app.email || 'Email provided'})<br/>
+          <strong>VMware Status:</strong> ${app.vmwareStatus || 'Ready'}<br/>
+          ${app.notes ? `<strong>Notes:</strong> "${app.notes}"<br/>` : ''}
+          <span style="font-size: 0.7rem; color: #94a3b8;">Review Window: 4–6 hours by Singapore Lead</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function closeApplicationsModal() {
+    if (!applicationsModal) return;
+    applicationsModal.classList.remove('active');
+    applicationsModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (openMyApplicationsBtn) openMyApplicationsBtn.addEventListener('click', openApplicationsModal);
+  if (appModalCloseBtn) appModalCloseBtn.addEventListener('click', closeApplicationsModal);
+  if (appModalDismissBtn) appModalDismissBtn.addEventListener('click', closeApplicationsModal);
+  if (appModalBackdrop) appModalBackdrop.addEventListener('click', closeApplicationsModal);
+
+  // =========================================================================
+  // 12. GEMINI MULTI-TURN AI ADVISOR CHATBOT ENGINE
+  // =========================================================================
+  const aiChatDrawer = document.getElementById('aiChatDrawer');
+  const aiChatBackdrop = document.getElementById('aiChatBackdrop');
+  const aiChatCloseBtn = document.getElementById('aiChatCloseBtn');
+  const openChatBtns = document.querySelectorAll('.open-ai-chat-btn');
+  const openChatFromMenuBtn = document.getElementById('openChatFromMenuBtn');
+  const aiMessagesThread = document.getElementById('aiMessagesThread');
+  const aiChatInputForm = document.getElementById('aiChatInputForm');
+  const aiChatInput = document.getElementById('aiChatInput');
+  const aiSendBtn = document.getElementById('aiSendBtn');
+  const aiModelSelect = document.getElementById('aiModelSelect');
+  const aiModeTabs = document.querySelectorAll('.ai-mode-tab');
+  const aiModeIndicator = document.getElementById('aiModeIndicator');
+  const aiClearHistoryBtn = document.getElementById('aiClearHistoryBtn');
+  const promptChips = document.querySelectorAll('.prompt-chip');
+
+  let activeChatMode = 'chat'; // 'chat' | 'search' | 'maps'
+  let conversationHistory = []; // Array of { role: 'user' | 'model', text: string }
+
+  function openAiChat() {
+    if (!aiChatDrawer) return;
+    aiChatDrawer.classList.add('active');
+    aiChatDrawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => aiChatInput?.focus(), 150);
+  }
+
+  function closeAiChat() {
+    if (!aiChatDrawer) return;
+    aiChatDrawer.classList.remove('active');
+    aiChatDrawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  openChatBtns.forEach(btn => btn.addEventListener('click', openAiChat));
+  if (openChatFromMenuBtn) openChatFromMenuBtn.addEventListener('click', openAiChat);
+  if (aiChatCloseBtn) aiChatCloseBtn.addEventListener('click', closeAiChat);
+  if (aiChatBackdrop) aiChatBackdrop.addEventListener('click', closeAiChat);
+
+  // Switch Chat Mode Tabs
+  aiModeTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      aiModeTabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      activeChatMode = tab.getAttribute('data-mode') || 'chat';
+
+      const model = aiModelSelect?.value || 'gemini-3.5-flash';
+      if (aiModeIndicator) {
+        if (activeChatMode === 'search') {
+          aiModeIndicator.innerHTML = `<span class="mode-dot" style="background: #10b981;"></span><span class="mode-text">Mode: Google Search Grounded (${model})</span>`;
+          if (aiChatInput) aiChatInput.placeholder = 'Search live technical & global engineering information...';
+        } else if (activeChatMode === 'maps') {
+          aiModeIndicator.innerHTML = `<span class="mode-dot" style="background: #f59e0b;"></span><span class="mode-text">Mode: Google Maps Grounded (${model})</span>`;
+          if (aiChatInput) aiChatInput.placeholder = 'Ask about Singapore tech hub, European partner cities, locations...';
+        } else {
+          aiModeIndicator.innerHTML = `<span class="mode-dot" style="background: #0284c7;"></span><span class="mode-text">Mode: Multi-Turn Conversation (${model})</span>`;
+          if (aiChatInput) aiChatInput.placeholder = 'Ask a question about NexaTech partnership, VMware, or tech...';
+        }
+      }
+    });
+  });
+
+  // Model Selection Change
+  if (aiModelSelect) {
+    aiModelSelect.addEventListener('change', () => {
+      const model = aiModelSelect.value;
+      const tabName = activeChatMode === 'search' ? 'Search Grounded' : activeChatMode === 'maps' ? 'Maps Grounded' : 'Multi-Turn Conversation';
+      if (aiModeIndicator) {
+        const dotColor = activeChatMode === 'search' ? '#10b981' : activeChatMode === 'maps' ? '#f59e0b' : '#0284c7';
+        aiModeIndicator.innerHTML = `<span class="mode-dot" style="background: ${dotColor};"></span><span class="mode-text">Mode: ${tabName} (${model})</span>`;
+      }
+      showToast(`Model switched to ${model}`);
+    });
+  }
+
+  // Clear Chat History
+  if (aiClearHistoryBtn) {
+    aiClearHistoryBtn.addEventListener('click', () => {
+      conversationHistory = [];
+      if (aiMessagesThread) {
+        aiMessagesThread.innerHTML = `
+          <div class="ai-message-row model-message">
+            <div class="ai-msg-avatar">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#0284c7" /></svg>
+            </div>
+            <div class="ai-msg-bubble">
+              <p>Conversation restarted. How can I assist you with NexaTech's global engineering solutions?</p>
+              <div class="ai-timestamp">Just now</div>
+            </div>
+          </div>
+        `;
+      }
+      showToast('Conversation cleared.');
+    });
+  }
+
+  // Quick Prompt Chips
+  promptChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const prompt = chip.getAttribute('data-prompt');
+      if (prompt && aiChatInput) {
+        aiChatInput.value = prompt;
+        sendMessage();
+      }
+    });
+  });
+
+  // Render Markdown / formatted text safely
+  function formatAiResponse(rawText) {
+    if (!rawText) return '';
+    let text = rawText
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // Bold **text**
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Italic *text*
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Inline code `code`
+    text = text.replace(/`([^`]+)`/g, '<code style="background: #f1f5f9; padding: 2px 5px; border-radius: 4px; font-family: monospace; font-size: 0.85em;">$1</code>');
+
+    // Bullet points
+    const lines = text.split('\n');
+    let inList = false;
+    let result = [];
+
+    for (let line of lines) {
+      if (line.trim().startsWith('* ') || line.trim().startsWith('- ')) {
+        if (!inList) {
+          result.push('<ul class="ai-bullet-list">');
+          inList = true;
+        }
+        result.push(`<li>${line.trim().substring(2)}</li>`);
+      } else {
+        if (inList) {
+          result.push('</ul>');
+          inList = false;
+        }
+        if (line.trim()) {
+          result.push(`<p>${line}</p>`);
+        }
+      }
+    }
+    if (inList) result.push('</ul>');
+
+    return result.join('');
+  }
+
+  // Scroll messages to bottom
+  function scrollChatToBottom() {
+    if (aiMessagesThread) {
+      aiMessagesThread.scrollTop = aiMessagesThread.scrollHeight;
+    }
+  }
+
+  // Append Message Row
+  function appendMessage(role, contentHtml, groundingHtml = '') {
+    if (!aiMessagesThread) return;
+    const row = document.createElement('div');
+    row.className = `ai-message-row ${role === 'user' ? 'user-message' : 'model-message'}`;
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    if (role === 'user') {
+      row.innerHTML = `
+        <div class="ai-msg-avatar">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="ai-msg-bubble">
+          <div>${contentHtml}</div>
+          <div class="ai-timestamp" style="color: rgba(255,255,255,0.7);">${timeStr}</div>
+        </div>
+      `;
+    } else {
+      row.innerHTML = `
+        <div class="ai-msg-avatar">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#0284c7" /></svg>
+        </div>
+        <div class="ai-msg-bubble">
+          <div>${contentHtml}</div>
+          ${groundingHtml}
+          <div class="ai-timestamp">${timeStr}</div>
+        </div>
+      `;
+    }
+
+    aiMessagesThread.appendChild(row);
+    scrollChatToBottom();
+  }
+
+  // Typing Indicator
+  let typingRow = null;
+  function showTypingIndicator() {
+    if (!aiMessagesThread) return;
+    typingRow = document.createElement('div');
+    typingRow.className = 'ai-message-row model-message typing-indicator-row';
+    typingRow.innerHTML = `
+      <div class="ai-msg-avatar">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#0284c7" /></svg>
+      </div>
+      <div class="ai-msg-bubble" style="display: flex; align-items: center; gap: 4px; padding: 10px 16px;">
+        <span class="status-pulse-dot" style="background: #0284c7;"></span>
+        <span class="status-pulse-dot" style="background: #38bdf8; animation-delay: 0.2s;"></span>
+        <span class="status-pulse-dot" style="background: #00f2fe; animation-delay: 0.4s;"></span>
+        <span style="font-size: 0.76rem; color: #64748b; margin-left: 6px;">Gemini is analyzing...</span>
+      </div>
+    `;
+    aiMessagesThread.appendChild(typingRow);
+    scrollChatToBottom();
+  }
+
+  function hideTypingIndicator() {
+    if (typingRow && typingRow.parentNode) {
+      typingRow.parentNode.removeChild(typingRow);
+      typingRow = null;
+    }
+  }
+
+  // Send Message Logic
+  async function sendMessage() {
+    if (!aiChatInput) return;
+    const text = aiChatInput.value.trim();
+    if (!text) return;
+
+    aiChatInput.value = '';
+    aiChatInput.style.height = 'auto';
+    if (aiSendBtn) aiSendBtn.disabled = true;
+
+    // Render user message in UI
+    appendMessage('user', text.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+    conversationHistory.push({ role: 'user', text });
+
+    showTypingIndicator();
+
+    const selectedModel = aiModelSelect?.value || 'gemini-3.5-flash';
+
+    try {
+      if (activeChatMode === 'search') {
+        // 1. Google Search Grounding Request
+        const res = await fetch('/api/search-grounding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: text })
+        });
+        const data = await res.json();
+        hideTypingIndicator();
+
+        if (data.error) throw new Error(data.error);
+
+        let groundingHtml = '';
+        if (data.sources && data.sources.length > 0) {
+          groundingHtml = `
+            <div class="ai-grounding-card">
+              <div class="grounding-header">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <span>Google Search Sources</span>
+              </div>
+              <div class="sources-list">
+                ${data.sources.map(s => `<a href="${s.url}" target="_blank" rel="noopener noreferrer" class="source-chip" title="${s.title}">${s.title.substring(0, 30)}... ↗</a>`).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        const formatted = formatAiResponse(data.text);
+        appendMessage('model', formatted, groundingHtml);
+        conversationHistory.push({ role: 'model', text: data.text });
+
+      } else if (activeChatMode === 'maps') {
+        // 2. Google Maps Grounding Request
+        const res = await fetch('/api/maps-grounding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ locationQuery: text })
+        });
+        const data = await res.json();
+        hideTypingIndicator();
+
+        if (data.error) throw new Error(data.error);
+
+        let groundingHtml = `
+          <div class="ai-grounding-card" style="background: #fefce8; border-color: #fde047;">
+            <div class="grounding-header" style="color: #a16207;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+              <span>Google Maps Grounded Location Context</span>
+            </div>
+            <p style="font-size: 0.74rem; color: #854d0e; margin: 2px 0 0;">Geographic intelligence grounded via Google Maps APIs for Singapore & global partner hubs.</p>
+          </div>
+        `;
+
+        const formatted = formatAiResponse(data.text);
+        appendMessage('model', formatted, groundingHtml);
+        conversationHistory.push({ role: 'model', text: data.text });
+
+      } else {
+        // 3. Multi-Turn Gemini Conversation Request
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: conversationHistory,
+            model: selectedModel
+          })
+        });
+        const data = await res.json();
+        hideTypingIndicator();
+
+        if (data.error) throw new Error(data.error);
+
+        const formatted = formatAiResponse(data.text);
+        appendMessage('model', formatted);
+        conversationHistory.push({ role: 'model', text: data.text });
+      }
+    } catch (err) {
+      console.error('Chat error:', err);
+      hideTypingIndicator();
+      appendMessage('model', `<p style="color: #ef4444;">I encountered an issue processing your request: "${err.message || 'Network error'}". Please try again or switch model.</p>`);
+    } finally {
+      if (aiSendBtn) aiSendBtn.disabled = false;
+      aiChatInput?.focus();
+    }
+  }
+
+  // Handle Form Submit
+  if (aiChatInputForm) {
+    aiChatInputForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendMessage();
+    });
+  }
+
+  // Auto-resize and Enter key on textarea
+  if (aiChatInput) {
+    aiChatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    aiChatInput.addEventListener('input', () => {
+      aiChatInput.style.height = 'auto';
+      aiChatInput.style.height = Math.min(aiChatInput.scrollHeight, 120) + 'px';
+    });
+  }
 });

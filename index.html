@@ -51,7 +51,6 @@
               </svg>
             </div>
             <span class="sticky-brand-text">NEXATECH</span>
-            <span class="brand-live-badge"><span class="badge-dot"></span>GLOBAL</span>
           </a>
 
           <!-- Navigation Links with CSS Smooth Scrolling -->
@@ -62,11 +61,59 @@
             <a href="#roles" class="nav-link">The Roles</a>
             <a href="#testimonials" class="nav-link">Stories</a>
             <a href="#faq" class="nav-link">FAQ</a>
+            <button class="nav-link nav-btn-ai open-ai-chat-btn" id="openChatNavBtn" aria-label="Open Gemini AI Advisor">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10a9.96 9.96 0 0 1-4.587-1.11L3 22l1.11-4.413A9.96 9.96 0 0 1 2 12 10 10 0 0 1 12 2z"></path></svg>
+              <span>AI Advisor</span>
+            </button>
             <button class="nav-link nav-btn-cta open-modal-btn" aria-label="Open Inquiry Form">
               <span>Get in Touch</span>
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           </nav>
+
+          <!-- Google Auth & User Profile Container -->
+          <div class="nav-auth-container" id="navAuthContainer">
+            <!-- Signed Out State: Google Sign-in -->
+            <button class="google-sign-in-btn" id="googleSignInBtn" aria-label="Sign in with Google">
+              <svg class="google-g-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Sign In</span>
+            </button>
+
+            <!-- Signed In State: Profile Dropdown -->
+            <div class="user-profile-menu" id="userProfileMenu" style="display: none;">
+              <button class="user-avatar-btn" id="userAvatarBtn" aria-label="Open User Account Menu" aria-expanded="false">
+                <img id="userAvatarImg" src="" alt="User Avatar" class="user-avatar-mini" />
+                <span id="userDisplayName" class="user-display-name">Partner</span>
+                <span class="user-role-badge">VERIFIED</span>
+                <svg class="chevron-down-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <div class="user-menu-header">
+                  <p class="user-menu-email" id="userMenuEmail">user@example.com</p>
+                  <span class="user-menu-status">Connected to Firebase</span>
+                </div>
+                <div class="user-menu-divider"></div>
+                <button class="user-menu-item" id="openMyApplicationsBtn">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  <span>My Applications (<span id="userInquiryCount">0</span>)</span>
+                </button>
+                <button class="user-menu-item" id="openChatFromMenuBtn">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  <span>AI Advisor (Gemini)</span>
+                </button>
+                <div class="user-menu-divider"></div>
+                <button class="user-menu-item text-danger" id="signOutBtn">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            </div>
+          </div>
 
           <!-- Mobile Hamburger Toggle -->
           <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -78,12 +125,16 @@
 
         <!-- Mobile Drawer Menu -->
         <div class="mobile-nav-drawer" id="mobileNavDrawer">
+          <div class="mobile-auth-section" id="mobileAuthSection">
+            <!-- Mobile Google Sign-In / User Pill dynamically rendered -->
+          </div>
           <a href="#hero" class="mobile-nav-link active">Home</a>
           <a href="#goal" class="mobile-nav-link">Our Goal</a>
           <a href="#about" class="mobile-nav-link">About Us</a>
           <a href="#roles" class="mobile-nav-link">The Roles</a>
           <a href="#testimonials" class="mobile-nav-link">Stories</a>
           <a href="#faq" class="mobile-nav-link">FAQ</a>
+          <button class="mobile-nav-link open-ai-chat-btn">💬 AI Advisor (Gemini)</button>
           <button class="mobile-nav-link mobile-cta open-modal-btn">Get in Touch</button>
         </div>
       </header>
@@ -189,35 +240,13 @@
             <span>Global Growth</span>
           </div>
 
-          <!-- Floating High-Tech Trust Badges -->
-          <div class="hero-trust-badges">
-            <div class="trust-badge-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00f2fe" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              <span>100% VMware Isolated</span>
-            </div>
-            <div class="trust-badge-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00f2fe" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>6+ Years Proven Track</span>
-            </div>
-            <div class="trust-badge-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00f2fe" stroke-width="2.5"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-              <span>Transparent Bank / PayPal</span>
-            </div>
-          </div>
-
-          <!-- Live Global Time & System Status Bar -->
-          <div class="hero-live-status-bar" id="heroLiveStatus">
-            <div class="status-pulse-dot"></div>
-            <span class="status-title">GLOBAL NETWORK LIVE:</span>
-            <div class="status-clocks">
-              <span class="clock-item" id="clockSGT">🇸🇬 Singapore: <span class="clock-val">--:--:--</span></span>
-              <span class="status-divider">•</span>
-              <span class="clock-item" id="clockLON">🇬🇧 London: <span class="clock-val">--:--</span></span>
-              <span class="status-divider">•</span>
-              <span class="clock-item" id="clockNYC">🇺🇸 New York: <span class="clock-val">--:--</span></span>
-              <span class="status-divider">•</span>
-              <span class="clock-item" id="clockTYO">🇯🇵 Tokyo: <span class="clock-val">--:--</span></span>
-            </div>
+          <!-- Clean Minimalist Trust Metadata -->
+          <div class="hero-trust-meta">
+            <span>VMware Isolated Development</span>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <span>Enterprise Singapore Architecture</span>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <span>Guaranteed Direct Payouts</span>
           </div>
         </div>
       </section>
@@ -621,10 +650,7 @@
         <!-- 4. ROTATING PARTNER TESTIMONIAL SLIDER SECTION -->
         <section class="testimonials-section reveal-card" id="testimonials">
           <div class="testimonials-header">
-            <div class="testi-badge-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="#f59e0b" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              <span>VERIFIED PARTNER FEEDBACK</span>
-            </div>
+            <p class="section-kicker">Partner Stories</p>
             <h2 class="testimonials-title">Partner Success Stories</h2>
             <p class="testimonials-subtitle">Hear directly from European professionals who have built stable, high-yield collaborations with our engineering team.</p>
           </div>
@@ -654,7 +680,7 @@
                       <span class="star-icon">★</span>
                       <span class="rating-num">5.0</span>
                     </div>
-                    <div class="partner-verified-badge">
+                    <div class="partner-verified-label">
                       <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#10b981" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
                       <span>Verified UK Host</span>
                     </div>
@@ -693,7 +719,7 @@
                       <span class="star-icon">★</span>
                       <span class="rating-num">5.0</span>
                     </div>
-                    <div class="partner-verified-badge">
+                    <div class="partner-verified-label">
                       <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#10b981" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
                       <span>Verified German Host</span>
                     </div>
@@ -732,7 +758,7 @@
                       <span class="star-icon">★</span>
                       <span class="rating-num">5.0</span>
                     </div>
-                    <div class="partner-verified-badge">
+                    <div class="partner-verified-label">
                       <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#10b981" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
                       <span>Verified Netherlands Host</span>
                     </div>
@@ -771,7 +797,7 @@
                       <span class="star-icon">★</span>
                       <span class="rating-num">5.0</span>
                     </div>
-                    <div class="partner-verified-badge">
+                    <div class="partner-verified-label">
                       <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#10b981" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
                       <span>Verified France Host</span>
                     </div>
@@ -839,10 +865,10 @@
           <!-- Brilliant Interactive FAQ Filter & Search Bar -->
           <div class="faq-controls-bar">
             <div class="faq-filter-pills" id="faqFilters" role="tablist">
-              <button class="filter-pill active" data-category="all" role="tab" aria-selected="true">All (10)</button>
-              <button class="filter-pill" data-category="partnership" role="tab" aria-selected="false">🤝 Partnership & Role</button>
-              <button class="filter-pill" data-category="security" role="tab" aria-selected="false">🛡️ VMware & Security</button>
-              <button class="filter-pill" data-category="payment" role="tab" aria-selected="false">💳 Payments & Trust</button>
+              <button class="filter-pill active" data-category="all" role="tab" aria-selected="true">All Questions</button>
+              <button class="filter-pill" data-category="partnership" role="tab" aria-selected="false">Partnership & Role</button>
+              <button class="filter-pill" data-category="security" role="tab" aria-selected="false">VMware & Security</button>
+              <button class="filter-pill" data-category="payment" role="tab" aria-selected="false">Payments & Trust</button>
             </div>
             <div class="faq-search-box">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -851,13 +877,13 @@
             </div>
           </div>
 
-          <!-- 10 FAQ Cards in 5x2 responsive grid with 3D Spherical Orb Badges -->
+          <!-- 10 FAQ Cards in 5x2 responsive grid -->
           <div class="faq-grid" id="faqGrid">
             <!-- FAQ 1 -->
             <article class="faq-card interactive-tilt" tabindex="0" data-category="partnership">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">1</span>
+                <span class="faq-number">01</span>
                 <h3 class="faq-question">Why are we looking for a partner?</h3>
               </div>
               <p class="faq-answer">
@@ -869,7 +895,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="partnership">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">2</span>
+                <span class="faq-number">02</span>
                 <h3 class="faq-question">Why are we going to use your account?</h3>
               </div>
               <p class="faq-answer">
@@ -881,7 +907,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="security">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">3</span>
+                <span class="faq-number">03</span>
                 <h3 class="faq-question">Why are we going to use your computer?</h3>
               </div>
               <p class="faq-answer">
@@ -893,7 +919,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="security">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">4</span>
+                <span class="faq-number">04</span>
                 <h3 class="faq-question">How do we make sure your personal data is safe?</h3>
               </div>
               <p class="faq-answer">
@@ -905,7 +931,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="payment">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">5</span>
+                <span class="faq-number">05</span>
                 <h3 class="faq-question">How can you trust us?</h3>
               </div>
               <p class="faq-answer">
@@ -917,7 +943,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="partnership">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">6</span>
+                <span class="faq-number">06</span>
                 <h3 class="faq-question">What is your role? What do you have to do?</h3>
               </div>
               <p class="faq-answer">
@@ -929,7 +955,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="payment">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">7</span>
+                <span class="faq-number">07</span>
                 <h3 class="faq-question">Which kind of payment system do we use?</h3>
               </div>
               <p class="faq-answer">
@@ -941,7 +967,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="partnership">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">8</span>
+                <span class="faq-number">08</span>
                 <h3 class="faq-question">What kinds of work does our team do?</h3>
               </div>
               <p class="faq-answer">
@@ -953,7 +979,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="security">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">9</span>
+                <span class="faq-number">09</span>
                 <h3 class="faq-question">What if your computer performance is not good?</h3>
               </div>
               <p class="faq-answer">
@@ -965,7 +991,7 @@
             <article class="faq-card interactive-tilt" tabindex="0" data-category="partnership">
               <div class="card-glow-reflection"></div>
               <div class="faq-card-top">
-                <span class="faq-number orb-number">10</span>
+                <span class="faq-number">10</span>
                 <h3 class="faq-question">How can we grow together?</h3>
               </div>
               <p class="faq-answer">
@@ -1193,6 +1219,158 @@
           <h4 class="success-title">Application Received!</h4>
           <p class="success-text">Thank you! Our Singapore engineering leads will review your details and reach out within 4–6 hours via email/message.</p>
           <button class="modal-btn-dismiss" id="modalDismissBtn">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Gemini AI Advisor Trigger Button -->
+    <button class="floating-ai-advisor-trigger open-ai-chat-btn" id="floatingAiBtn" aria-label="Open NexaTech AI Technical Advisor">
+      <div class="ai-trigger-pulse-glow"></div>
+      <div class="ai-trigger-icon-wrap">
+        <svg class="ai-sparkle-svg" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#38bdf8" />
+          <path d="M19 17L20 20L23 21L20 22L19 25L18 22L15 21L18 20L19 17Z" fill="#00f2fe" transform="scale(0.5) translate(14, 14)" />
+        </svg>
+      </div>
+      <div class="ai-trigger-content">
+        <span class="ai-trigger-title">Ask AI Advisor</span>
+        <span class="ai-trigger-sub">Multi-Turn • Grounded</span>
+      </div>
+      <span class="ai-live-indicator" title="Gemini AI Ready"></span>
+    </button>
+
+    <!-- GEMINI MULTI-TURN AI ADVISOR CHAT DRAWER / MODAL -->
+    <div id="aiChatDrawer" class="ai-chat-drawer" aria-hidden="true" role="dialog" aria-label="NexaTech AI Advisor">
+      <div class="ai-chat-backdrop" id="aiChatBackdrop"></div>
+      <div class="ai-chat-panel">
+        <!-- Chat Header -->
+        <div class="ai-chat-header">
+          <div class="ai-chat-brand">
+            <div class="ai-brand-badge">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#38bdf8" />
+              </svg>
+            </div>
+            <div class="ai-brand-info">
+              <div class="ai-title-row">
+                <h3 class="ai-brand-title">NexaTech AI Advisor</h3>
+                <span class="ai-role-pill">Gemini Powered</span>
+              </div>
+              <p class="ai-brand-sub">Ask technical, VMware, legal, or partnership questions</p>
+            </div>
+          </div>
+
+          <div class="ai-header-actions">
+            <!-- Model Selector Dropdown -->
+            <div class="ai-model-selector-wrap">
+              <label for="aiModelSelect" class="sr-only">Gemini Model</label>
+              <select id="aiModelSelect" class="ai-model-select" aria-label="Select Gemini Model">
+                <option value="gemini-3.5-flash" selected>⚡ gemini-3.5-flash (General)</option>
+                <option value="gemini-3.1-pro-preview">🧠 gemini-3.1-pro-preview (Complex)</option>
+                <option value="gemini-3.1-flash-lite">🚀 gemini-3.1-flash-lite (Fast)</option>
+              </select>
+            </div>
+            <button class="ai-chat-close-btn" id="aiChatCloseBtn" aria-label="Close Chat">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mode Navigation Tabs: Multi-Turn, Search Grounded, Maps Grounded -->
+        <div class="ai-mode-tabs" role="tablist">
+          <button class="ai-mode-tab active" data-mode="chat" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Multi-Turn Chat</span>
+          </button>
+          <button class="ai-mode-tab" data-mode="search" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Search Grounded</span>
+          </button>
+          <button class="ai-mode-tab" data-mode="maps" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+            <span>Maps Grounded</span>
+          </button>
+        </div>
+
+        <!-- Chat Conversation Messages Thread -->
+        <div class="ai-messages-thread" id="aiMessagesThread" role="log" aria-live="polite">
+          <!-- Welcome Message -->
+          <div class="ai-message-row model-message">
+            <div class="ai-msg-avatar">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#0284c7" /></svg>
+            </div>
+            <div class="ai-msg-bubble">
+              <p>Hello! I am your <strong>NexaTech Technical & Partnership Advisor</strong>. How can I help you today?</p>
+              <ul class="ai-bullet-list">
+                <li>Ask about our <strong>VMware isolated remote setup</strong> and how your host machine stays protected.</li>
+                <li>Understand <strong>milestone profit-sharing & payout schedules</strong> (SEPA, PayPal, Wire).</li>
+                <li>Use <strong>Google Search Grounding</strong> for up-to-date tech policies or exchange rates.</li>
+                <li>Use <strong>Google Maps Grounding</strong> to inspect our Singapore Marina Bay tech base or European partner hubs.</li>
+              </ul>
+              <div class="ai-timestamp">Just now</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggested Prompt Chips -->
+        <div class="ai-suggested-chips" id="aiSuggestedChips">
+          <button class="prompt-chip" data-prompt="How does VMware isolation protect my computer?">🛡️ How does VMware protect my PC?</button>
+          <button class="prompt-chip" data-prompt="What is the profit-sharing schedule and bank transfer method?">💳 Payout schedules & methods?</button>
+          <button class="prompt-chip" data-prompt="Tell me about Singapore's Marina Bay Financial tech ecosystem and Singapore Flyer node.">📍 Marina Bay Tech Hub (Maps)</button>
+          <button class="prompt-chip" data-prompt="What are current IT remote work and contract regulations in Europe?">🔍 European remote work policies (Search)</button>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form class="ai-chat-input-form" id="aiChatInputForm">
+          <div class="ai-mode-indicator-pill" id="aiModeIndicator">
+            <span class="mode-dot"></span>
+            <span class="mode-text">Mode: Multi-Turn Conversation (gemini-3.5-flash)</span>
+          </div>
+          <div class="ai-input-row">
+            <textarea
+              id="aiChatInput"
+              class="ai-chat-textarea"
+              rows="1"
+              placeholder="Ask a question about NexaTech partnership, VMware, or tech..."
+              aria-label="Type message to AI Advisor"
+            ></textarea>
+            <button type="submit" class="ai-send-btn" id="aiSendBtn" aria-label="Send message">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+          <div class="ai-input-footer">
+            <span class="ai-footer-note">All answers are generated with Gemini AI & grounded with Google Search/Maps data.</span>
+            <button type="button" class="ai-clear-btn" id="aiClearHistoryBtn" title="Clear conversation history">Clear Chat</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MY APPLICATIONS & FIRESTORE STATUS MODAL -->
+    <div id="applicationsModal" class="contact-modal" aria-hidden="true" role="dialog" aria-label="My Applications">
+      <div class="modal-backdrop" id="appModalBackdrop"></div>
+      <div class="modal-card">
+        <button class="modal-close-btn" id="appModalCloseBtn" aria-label="Close dialog">&times;</button>
+        <div class="modal-header">
+          <div class="modal-icon-badge">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          </div>
+          <h3 class="modal-title">My Partner Applications</h3>
+          <p class="modal-subtitle">Stored securely in Firebase Firestore under your account</p>
+        </div>
+
+        <div id="applicationsList" class="applications-list-container">
+          <div class="applications-loading">
+            <svg class="animate-spin" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0284c7" stroke-width="2.5"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>
+            <span>Loading applications from Firestore...</span>
+          </div>
+        </div>
+
+        <div class="app-modal-footer">
+          <button class="modal-btn-dismiss" id="appModalDismissBtn">Close</button>
+          <button class="modal-submit-btn open-modal-btn" id="newAppBtn" style="margin-top: 0; padding: 9px 18px; font-size: 0.85rem;">
+            <span>Submit New Application</span>
+          </button>
         </div>
       </div>
     </div>
