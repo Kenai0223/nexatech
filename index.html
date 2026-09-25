@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NexaTech - Global Software Solutions</title>
+    <meta name="description" content="NexaTech: Your partner in global software solutions. Professional remote collaboration bridging Europe and Asia." />
+    <meta property="og:title" content="NexaTech - Global Software Solutions" />
+    <meta property="og:description" content="NexaTech: Your partner in global software solutions. Professional remote collaboration bridging Europe and Asia." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- STICKY HERO HEADER NAVIGATION -->
+      <header class="hero-sticky-nav" id="stickyHeroHeader">
+        <div class="scroll-progress-line" id="scrollProgress"></div>
+        <div class="sticky-nav-inner">
+          <a href="#hero" class="sticky-nav-brand" aria-label="NexaTech Home">
+            <div class="sticky-logo-mini">
+              <svg viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 82 L46 16 L66 16 L42 82 Z" fill="#0284c7" />
+                <path d="M46 16 L94 82 L115 82 L66 16 Z" fill="#38bdf8" />
+                <path d="M58 16 L138 16 L132 34 L72 34 Z" fill="#38bdf8" />
+                <path d="M96 34 L114 34 L88 82 L70 82 Z" fill="#0284c7" />
+              </svg>
+            </div>
+            <span class="sticky-brand-text">NEXATECH</span>
+          </a>
+
+          <!-- Navigation Links with CSS Smooth Scrolling -->
+          <nav class="sticky-nav-links" id="navLinks">
+            <a href="#hero" class="nav-link active">Home</a>
+            <a href="#goal" class="nav-link">Our Goal</a>
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#roles" class="nav-link">The Roles</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+            <a href="#contact" class="nav-link nav-btn-cta">Get in Touch</a>
+          </nav>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+          </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div class="mobile-nav-drawer" id="mobileNavDrawer">
+          <a href="#hero" class="mobile-nav-link active">Home</a>
+          <a href="#goal" class="mobile-nav-link">Our Goal</a>
+          <a href="#about" class="mobile-nav-link">About Us</a>
+          <a href="#roles" class="mobile-nav-link">The Roles</a>
+          <a href="#faq" class="mobile-nav-link">FAQ</a>
+          <a href="#contact" class="mobile-nav-link mobile-cta">Get in Touch</a>
+        </div>
+      </header>
+
+      <!-- 1. HERO SECTION -->
+      <section class="hero-section" id="hero">
+        <img
+          src="/src/assets/images/singapore_hero_skyline_1790329653469.jpg"
+          alt="Singapore Marina Bay Skyline"
+          class="hero-bg"
+          referrerpolicy="no-referrer"
+        />
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+          <!-- NT Monogram Logo (3D Ribbon Design) -->
+          <div class="logo-container floating-logo" aria-label="NexaTech Logo">
+            <svg viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ntGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0284c7" />
+                  <stop offset="100%" stop-color="#0369a1" />
+                </linearGradient>
+                <linearGradient id="ntGradDiag" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0284c7" />
+                  <stop offset="50%" stop-color="#0ea5e9" />
+                  <stop offset="100%" stop-color="#38bdf8" />
+                </linearGradient>
+                <linearGradient id="ntGradTop" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0ea5e9" />
+                  <stop offset="100%" stop-color="#38bdf8" />
+                </linearGradient>
+                <linearGradient id="ntGradStem" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0284c7" />
+                  <stop offset="100%" stop-color="#075985" />
+                </linearGradient>
+                <filter id="ntShadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
+                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0284c7" flood-opacity="0.3" />
+                </filter>
+              </defs>
+              <g filter="url(#ntShadow)">
+                <!-- Left upright diagonal of N -->
+                <path d="M22 82 L46 16 L66 16 L42 82 Z" fill="url(#ntGradLeft)" />
+                <!-- Center diagonal connecting N into T -->
+                <path d="M46 16 L94 82 L115 82 L66 16 Z" fill="url(#ntGradDiag)" />
+                <!-- Top horizontal bar of T extending right -->
+                <path d="M58 16 L138 16 L132 34 L72 34 Z" fill="url(#ntGradTop)" />
+                <!-- T stem angled down -->
+                <path d="M96 34 L114 34 L88 82 L70 82 Z" fill="url(#ntGradStem)" />
+              </g>
+            </svg>
+          </div>
+
+          <h1 class="brand-title shimmer-text">NEXATECH</h1>
+          <p class="brand-subtitle">Your Partner in Global Software Solutions</p>
+
+          <div class="flight-route animated-route-pill">
+            <span>From Singapore</span>
+            <svg class="plane-icon gliding-plane" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+            </svg>
+            <span>To The World</span>
+          </div>
+
+          <div class="brand-values">
+            <span>Quality Development</span>
+            <span class="dot">•</span>
+            <span>Trusted Partnership</span>
+            <span class="dot">•</span>
+            <span>Global Growth</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. MAIN CONTENT -->
+      <main class="main-content">
+        <!-- Two Column Grid: Our Goal & About Us -->
+        <section class="two-column-grid">
+          <!-- Left Column: Our Goal -->
+          <article class="info-card reveal-card" id="goal">
+            <div class="section-title-wrap">
+              <div class="section-icon-badge">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <h2 class="section-title">Our Goal</h2>
+            </div>
+
+            <p class="card-lead-bold">
+              We aim to expand our marketplace from a nationwide presence to a global market.
+            </p>
+            <p class="card-description">
+              As we continue to grow, we plan to establish our presence in multiple locations around the world.
+            </p>
+
+            <!-- Stylized World Map with flight paths & glowing pin nodes -->
+            <div class="world-map-wrap">
+              <svg class="world-map-svg" viewBox="0 0 520 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Continents silhouette -->
+                <path d="M45 42 Q 65 30, 95 38 T 130 65 T 100 100 T 70 85 T 45 42 Z" fill="#dbeafe" opacity="0.85" />
+                <path d="M90 110 Q 115 120, 105 160 T 95 190 T 75 160 T 90 110 Z" fill="#dbeafe" opacity="0.85" />
+                <path d="M175 40 Q 215 32, 230 55 T 205 85 T 170 65 T 175 40 Z" fill="#dbeafe" opacity="0.85" />
+                <path d="M185 85 Q 235 90, 240 135 T 210 185 T 180 140 T 185 85 Z" fill="#dbeafe" opacity="0.85" />
+                <path d="M245 35 Q 340 25, 410 65 T 425 110 T 360 115 T 260 85 T 245 35 Z" fill="#dbeafe" opacity="0.85" />
+                <path d="M365 140 Q 425 135, 430 175 T 385 195 T 355 165 T 365 140 Z" fill="#dbeafe" opacity="0.85" />
+
+                <!-- Flight route arcs from Singapore (approx 340, 115) with animated dashed stroke -->
+                <!-- Arc to Europe/London (195, 52) -->
+                <path class="animated-flight-arc" d="M340 115 Q 260 50, 195 52" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="5 4" opacity="0.85" />
+                <!-- Arc to North America/NY (110, 60) -->
+                <path class="animated-flight-arc" d="M340 115 Q 210 15, 110 60" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="5 4" opacity="0.75" />
+                <!-- Arc to Tokyo/East Asia (390, 65) -->
+                <path class="animated-flight-arc" d="M340 115 Q 370 80, 390 65" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="5 4" opacity="0.85" />
+                <!-- Arc to Australia/Sydney (405, 165) -->
+                <path class="animated-flight-arc" d="M340 115 Q 380 135, 405 165" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="5 4" opacity="0.85" />
+                <!-- Arc to South America (95, 140) -->
+                <path class="animated-flight-arc" d="M340 115 Q 200 135, 95 140" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55" />
+
+                <!-- Animated airplane silhouette cruising on route -->
+                <g class="cruising-plane" transform="translate(255, 42) rotate(-15)">
+                  <path d="M0 -6 L5 4 L2 3 L0 8 L-2 3 L-5 4 Z" fill="#0284c7" />
+                </g>
+
+                <!-- Location Pin Nodes & Ripples -->
+                <!-- Singapore Hub (glowing concentric ripples) -->
+                <circle class="hub-ripple-1" cx="340" cy="115" r="14" fill="none" stroke="#0284c7" stroke-width="1.2" opacity="0.5" />
+                <circle class="hub-ripple-2" cx="340" cy="115" r="22" fill="none" stroke="#38bdf8" stroke-width="0.8" opacity="0.3" />
+                <circle cx="340" cy="115" r="7" fill="#0284c7" fill-opacity="0.25" />
+                <circle cx="340" cy="115" r="4.5" fill="#0284c7" />
+                <circle cx="340" cy="115" r="2" fill="#ffffff" />
+
+                <!-- Node: Europe -->
+                <circle class="map-pulse-node" cx="195" cy="52" r="3.5" fill="#0284c7" />
+                <!-- Node: North America -->
+                <circle class="map-pulse-node" cx="110" cy="60" r="3.5" fill="#0284c7" />
+                <!-- Node: East Asia -->
+                <circle class="map-pulse-node" cx="390" cy="65" r="3.5" fill="#0284c7" />
+                <!-- Node: Australia -->
+                <circle class="map-pulse-node" cx="405" cy="165" r="3.5" fill="#0284c7" />
+                <!-- Node: South America -->
+                <circle class="map-pulse-node" cx="95" cy="140" r="3" fill="#0284c7" />
+              </svg>
+            </div>
+
+            <p class="goal-card-footer">
+              More Locations • More Opportunities • A Global Future
+            </p>
+          </article>
+
+          <!-- Right Column: About Us -->
+          <article class="info-card reveal-card" id="about">
+            <div class="section-title-wrap">
+              <div class="section-icon-badge">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <h2 class="section-title">About Us</h2>
+            </div>
+
+            <p class="card-lead-bold">
+              We have been in this business for over six years.
+            </p>
+            <p class="card-description">
+              Throughout our journey, we have remained committed to respecting our clients, protecting their privacy, and maintaining professional relationships built on trust.
+            </p>
+
+            <!-- 4 Pillar Feature Columns -->
+            <div class="pillars-grid">
+              <div class="pillar-item">
+                <div class="pillar-icon-box">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </div>
+                <span class="pillar-label">Respect<br />Clients</span>
+              </div>
+
+              <div class="pillar-item">
+                <div class="pillar-icon-box">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </div>
+                <span class="pillar-label">Protect<br />Privacy</span>
+              </div>
+
+              <div class="pillar-item">
+                <div class="pillar-icon-box">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.3 1.3"></path>
+                    <path d="m18 10 3.3-3.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L14 6"></path>
+                    <path d="m2 14 6 6"></path>
+                    <path d="M7 8 2 13"></path>
+                    <path d="m9 10 5-5"></path>
+                    <path d="m13 14 3-3"></path>
+                  </svg>
+                </div>
+                <span class="pillar-label">Build<br />Trust</span>
+              </div>
+
+              <div class="pillar-item">
+                <div class="pillar-icon-box">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <span class="pillar-label">Long-Term<br />Partnerships</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- 3. THE ROLE OF BOTH SIDES SECTION -->
+        <section class="role-section reveal-card" id="roles">
+          <div class="role-header">
+            <svg class="role-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <h2 class="role-title">The Role of Both Sides</h2>
+            <p class="role-subhead">We do the <span class="highlight">all the works</span>.</p>
+            <p class="role-caption">Creating site account and providing us developing environment is all you need.</p>
+          </div>
+
+          <div class="role-flow-grid">
+            <!-- Left Card: Our Team -->
+            <div class="role-card">
+              <div class="role-card-header">
+                <!-- NT Mini Logo -->
+                <div class="role-logo-mini">
+                  <svg viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 82 L46 16 L66 16 L42 82 Z" fill="#0369a1" />
+                    <path d="M46 16 L94 82 L115 82 L66 16 Z" fill="#0284c7" />
+                    <path d="M58 16 L138 16 L132 34 L72 34 Z" fill="#0284c7" />
+                    <path d="M96 34 L114 34 L88 82 L70 82 Z" fill="#0369a1" />
+                  </svg>
+                </div>
+                <div class="role-card-subtext">NEXATECH</div>
+                <h3 class="role-card-title">Our Team</h3>
+              </div>
+
+              <ul class="role-checklist">
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Create and manage the account</span>
+                </li>
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Do the development work</span>
+                </li>
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Handle technical operations</span>
+                </li>
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Ensure project success</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Center Flow Connector -->
+            <div class="role-flow-center">
+              <div class="flow-arrows-wrap">
+                <svg class="flow-arrow-left" viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="38" y1="10" x2="4" y2="10"></line>
+                  <polyline points="12 4 4 10 12 16"></polyline>
+                </svg>
+                <svg class="flow-arrow-right" viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="2" y1="10" x2="36" y2="10"></line>
+                  <polyline points="28 4 36 10 28 16"></polyline>
+                </svg>
+              </div>
+
+              <!-- Animated Handshake Icon -->
+              <div class="handshake-wrapper">
+                <svg class="flow-handshake-icon pulse-handshake" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 28 L24 16 L36 28 L24 40 Z" fill="#e0f2fe" opacity="0.4" />
+                  <path d="M16 34 L28 46 L38 36 L26 24 Z" />
+                  <path d="M48 34 L36 46 L26 36 L38 24 Z" />
+                  <path d="M8 30 L18 20" />
+                  <path d="M56 30 L46 20" />
+                  <path d="M22 42 L26 46 L34 38" />
+                  <path d="M28 48 L32 52 L40 44" />
+                </svg>
+              </div>
+
+              <h4 class="flow-center-title">Simple for You</h4>
+              <p class="flow-center-text">Just a few steps,<br />we do the rest.</p>
+            </div>
+
+            <!-- Right Card: Your Role -->
+            <div class="role-card">
+              <div class="role-card-header">
+                <!-- User Icon Badge -->
+                <div class="role-user-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div style="height: 14px;"></div>
+                <h3 class="role-card-title">Your Role</h3>
+              </div>
+
+              <ul class="role-checklist">
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Create an account</span>
+                </li>
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Verify the account</span>
+                </li>
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Install VMware and allow access</span>
+                </li>
+                <li class="role-checklist-item">
+                  <span class="check-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span>Share payment with us</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. FREQUENTLY ASKED QUESTIONS SECTION -->
+        <section class="faq-section reveal-card" id="faq">
+          <div class="faq-header">
+            <div class="faq-header-icon">?</div>
+            <div class="faq-header-text">
+              <h2>Frequently Asked Questions</h2>
+              <p>Everything you need to know</p>
+            </div>
+          </div>
+
+          <!-- 10 FAQ Cards in 5x2 responsive grid -->
+          <div class="faq-grid">
+            <!-- FAQ 1 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">1</span>
+                <h3 class="faq-question">Why are we looking for a partner?</h3>
+              </div>
+              <p class="faq-answer">
+                Over the years, our team has grown steadily, and we've had the privilege of working with clients from different parts of the world. We want a trustworthy partner in Europe to bridge the gap and grow together.
+              </p>
+            </article>
+
+            <!-- FAQ 2 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">2</span>
+                <h3 class="faq-question">Why are we going to use your account?</h3>
+              </div>
+              <p class="faq-answer">
+                Salaries are lower in Asian countries, so we need to use your account to earn more. We will not use it for any illegal purpose, and you can check what we are doing in real time.
+              </p>
+            </article>
+
+            <!-- FAQ 3 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">3</span>
+                <h3 class="faq-question">Why are we going to use your computer?</h3>
+              </div>
+              <p class="faq-answer">
+                Many freelance websites detect users by IP address. We need your IP through your computer. Don't worry — you can protect your personal data with a simple option (VMware).
+              </p>
+            </article>
+
+            <!-- FAQ 4 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">4</span>
+                <h3 class="faq-question">How do we make sure your personal data is safe?</h3>
+              </div>
+              <p class="faq-answer">
+                We use VMware, which creates a virtual machine on your computer. It is completely separated from your main system, so your personal data remains safe.
+              </p>
+            </article>
+
+            <!-- FAQ 5 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">5</span>
+                <h3 class="faq-question">How can you trust us?</h3>
+              </div>
+              <p class="faq-answer">
+                All payments are processed through your bank account, and you control your payment account. Everything is transparent and under your supervision.
+              </p>
+            </article>
+
+            <!-- FAQ 6 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">6</span>
+                <h3 class="faq-question">What is your role? What do you have to do?</h3>
+              </div>
+              <p class="faq-answer">
+                Create an account, verify it, install VMware, allow access, keep your computer on when needed, and share the agreed payment with us.
+              </p>
+            </article>
+
+            <!-- FAQ 7 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">7</span>
+                <h3 class="faq-question">Which kind of payment system do we use?</h3>
+              </div>
+              <p class="faq-answer">
+                We can use PayPal or another mutually agreed payment method depending on the project.
+              </p>
+            </article>
+
+            <!-- FAQ 8 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">8</span>
+                <h3 class="faq-question">What kinds of work does our team do?</h3>
+              </div>
+              <p class="faq-answer">
+                Web, Android, AI, backend, APIs, database, DevOps, UI, testing, maintenance, bug fixing, support. From planning to deployment and maintenance.
+              </p>
+            </article>
+
+            <!-- FAQ 9 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">9</span>
+                <h3 class="faq-question">What if your computer performance is not good?</h3>
+              </div>
+              <p class="faq-answer">
+                You may need to allocate some resources to VMware at first. After 1–2 months, we will buy a new computer for you. It will be safer and more comfortable.
+              </p>
+            </article>
+
+            <!-- FAQ 10 -->
+            <article class="faq-card" tabindex="0">
+              <div class="faq-card-top">
+                <span class="faq-number">10</span>
+                <h3 class="faq-question">How can we grow together?</h3>
+              </div>
+              <p class="faq-answer">
+                With trust, transparency and fair benefits, we can build a stable, long-term partnership and achieve success together.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <!-- 5. FOOTER & CONTACT SECTION -->
+      <footer class="footer-section reveal-card" id="contact">
+        <!-- Glowing Night Skyline Background -->
+        <img
+          src="/src/assets/images/singapore_night_skyline_1790329666149.jpg"
+          alt="Singapore Night Skyline"
+          class="footer-skyline-bg"
+          referrerpolicy="no-referrer"
+        />
+        <div class="footer-gradient-overlay"></div>
+
+        <div class="footer-content-wrap">
+          <!-- Contact Row with 3 Columns -->
+          <div class="footer-contact-row">
+            <!-- Left: Get in Touch -->
+            <div class="footer-get-in-touch">
+              <div class="touch-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="touch-text-wrap">
+                <h3>Get in Touch</h3>
+                <p>Let's build something great together.</p>
+              </div>
+            </div>
+
+            <!-- Center: Contact Info List -->
+            <div class="footer-details-list">
+              <div class="contact-item" data-copy="hello@nexatech.com" title="Click to copy email">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <a href="mailto:hello@nexatech.com">hello@nexatech.com</a>
+              </div>
+
+              <div class="contact-item" data-copy="+65 8123 4567" title="Click to copy phone number">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <a href="tel:+6581234567">+65 8123 4567</a>
+              </div>
+
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div class="contact-meta">
+                  <span>Singapore (HQ)</span>
+                  <span class="meta-sub">With global presence</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Logo & Branding -->
+            <div class="footer-brand-box">
+              <div class="footer-brand-lockup">
+                <div class="footer-logo-svg">
+                  <svg viewBox="0 0 160 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 82 L46 16 L66 16 L42 82 Z" fill="#0284c7" />
+                    <path d="M46 16 L94 82 L115 82 L66 16 Z" fill="#38bdf8" />
+                    <path d="M58 16 L138 16 L132 34 L72 34 Z" fill="#38bdf8" />
+                    <path d="M96 34 L114 34 L88 82 L70 82 Z" fill="#0284c7" />
+                  </svg>
+                </div>
+                <span class="footer-brand-name">NEXATECH</span>
+              </div>
+              <p class="footer-tagline">
+                Global Vision <span>•</span> Local Team <span>•</span> Your Success
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Skyline silhouette vector & glowing network globe -->
+          <div class="footer-skyline-interactive">
+            <!-- Stylized Singapore cityscape skyline silhouette vector -->
+            <svg class="skyline-vector-art" viewBox="0 0 650 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="neonGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+                  <stop offset="100%" stop-color="#0284c7" stop-opacity="0.1" />
+                </linearGradient>
+              </defs>
+              <!-- Marina Bay Sands 3 towers and skypark on left -->
+              <rect x="50" y="25" width="14" height="75" fill="url(#neonGlow)" />
+              <rect x="70" y="22" width="14" height="78" fill="url(#neonGlow)" />
+              <rect x="90" y="25" width="14" height="75" fill="url(#neonGlow)" />
+              <!-- Skypark surfboard on top -->
+              <path d="M40 22 Q 80 18, 120 22 Q 130 23, 115 28 L 45 28 Z" fill="#38bdf8" opacity="0.9" />
+
+              <!-- Futuristic domes / Supertrees -->
+              <path d="M125 70 Q 140 45, 155 70 Z" fill="url(#neonGlow)" />
+              <path d="M150 65 Q 165 40, 180 65 Z" fill="url(#neonGlow)" />
+
+              <!-- Skyscrapers cluster in financial district -->
+              <rect x="200" y="30" width="18" height="70" fill="url(#neonGlow)" />
+              <rect x="225" y="15" width="22" height="85" fill="url(#neonGlow)" />
+              <polygon points="236,2 225,15 247,15" fill="#38bdf8" />
+              <rect x="254" y="38" width="16" height="62" fill="url(#neonGlow)" />
+              <rect x="276" y="20" width="24" height="80" fill="url(#neonGlow)" />
+              <rect x="306" y="45" width="18" height="55" fill="url(#neonGlow)" />
+              <rect x="330" y="28" width="20" height="72" fill="url(#neonGlow)" />
+
+              <!-- Singapore Flyer ferris wheel -->
+              <circle cx="380" cy="55" r="30" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6" />
+              <circle cx="380" cy="55" r="4" fill="#38bdf8" />
+              <line x1="380" y1="55" x2="370" y2="95" stroke="#38bdf8" stroke-width="1.5" opacity="0.5" />
+              <line x1="380" y1="55" x2="390" y2="95" stroke="#38bdf8" stroke-width="1.5" opacity="0.5" />
+
+              <!-- Merlion spouting water on right -->
+              <path d="M430 85 Q 435 60, 442 55 Q 448 60, 446 85 Z" fill="#ffffff" opacity="0.8" />
+              <circle cx="442" cy="52" r="5" fill="#ffffff" opacity="0.9" />
+              <!-- Water fountain arc -->
+              <path d="M444 54 Q 460 50, 475 75" stroke="#38bdf8" stroke-width="2" stroke-dasharray="2 2" fill="none" />
+
+              <!-- Water level reflections -->
+              <line x1="20" y1="96" x2="520" y2="96" stroke="#38bdf8" stroke-width="1" opacity="0.4" />
+              <line x1="40" y1="99" x2="490" y2="99" stroke="#0ea5e9" stroke-width="0.8" opacity="0.3" />
+            </svg>
+
+            <!-- Glowing wireframe globe on bottom right corner -->
+            <svg class="globe-vector-art rotating-globe" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="45" stroke="#38bdf8" stroke-width="1.5" opacity="0.6" />
+              <ellipse cx="50" cy="50" rx="45" ry="22" stroke="#38bdf8" stroke-width="1.2" opacity="0.5" />
+              <ellipse cx="50" cy="50" rx="22" ry="45" stroke="#38bdf8" stroke-width="1.2" opacity="0.5" />
+              <line x1="5" y1="50" x2="95" y2="50" stroke="#38bdf8" stroke-width="1.2" opacity="0.5" />
+              <line x1="50" y1="5" x2="50" y2="95" stroke="#38bdf8" stroke-width="1.2" opacity="0.5" />
+              <!-- Glowing points -->
+              <circle cx="50" cy="50" r="3" fill="#38bdf8" />
+              <circle cx="68" cy="38" r="2.5" fill="#38bdf8" />
+              <circle cx="32" cy="62" r="2.5" fill="#38bdf8" />
+            </svg>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Floating Back to Top Button with Smooth Return -->
+    <a href="#hero" id="backToTopBtn" class="back-to-top-btn" aria-label="Back to Top" title="Back to Top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </a>
+
+    <!-- Toast Notification Popup -->
+    <div id="toastNotice" class="toast-notice" role="status" aria-live="polite">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span id="toastMessage">Information copied to clipboard!</span>
+    </div>
+
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>
